@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Admin - FAQ Assistant</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+
+<body>
+    <h1>Admin Interface</h1>
+    <h2>Update Knowledge Base</h2>
+    <form method="POST">
+        <label for="question">Question</label><br>
+        <input type="text" id="question" name="question" required><br><br>
+        <label for="answer">Answer</label><br>
+        <textarea id="answer" name="answer" required></textarea><br><br>
+        <button type="submit">Add FAQ</button>
+    </form>
+    <h2>Upload Knowledge Base from JSON</h2>
+    <form action="/update_kb" method="POST" enctype="multipart/form-data">
+        <label for="file">Upload JSON File:</label><br><br>
+        <input type="file" id="file" name="file" accept=".json" required><br><br>
+        <button type="submit">Upload</button>
+    </form>
+
+    <h2>Knowledge Base</h2>
+    <ul>
+        {% for entry in knowledge_base %}
+        <li><strong>{{ entry.question }}</strong>: {{ entry.answer }}</li>
+        {% endfor %}
+    </ul>
+    <h2>Recent Logs</h2>
+    <table>
+        <tr>
+            <th>Query</th>
+            <th>Response</th>
+            <th>Timestamp</th>
+        </tr>
+        {% for log in logs %}
+        <tr>
+            <td>{{ log.query }}</td>
+            <td>{{ log.response }}</td>
+            <td>{{ log.timestamp }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+
+</html>
